@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <pthread.h>
+
+void *thread_function(void *arg)
+{
+    int num = *(int *)arg;
+    printf("Thread is running...\n");
+    printf("Value received by thread: %d\n", num);
+    pthread_exit(NULL);
+}
+
+int main()
+{
+    pthread_t thread;
+    int value;
+
+    printf("Enter a value: ");
+    scanf("%d", &value);
+
+    pthread_create(&thread, NULL, thread_function, &value);
+    pthread_join(thread, NULL);
+
+    printf("Main thread completed.\n");
+
+    return 0;
+}
